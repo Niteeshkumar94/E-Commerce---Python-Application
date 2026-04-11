@@ -217,7 +217,12 @@ def stripe_webhook():
 @app.route('/health', methods=['GET'])
 def health():
     return jsonify({'status': 'ok', 'message': 'ShopEasy backend running'})
- 
+
+from flask import send_file
+
+@app.route('/')
+def index():
+    return send_file('Shopeasy.html') 
  
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
