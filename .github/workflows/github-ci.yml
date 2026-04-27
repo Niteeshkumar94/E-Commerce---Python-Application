@@ -1,0 +1,35 @@
+name: ShopEasy CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to EC2
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Pull latest code
+        run: |
+          cd /home/ubuntu/E-Commerce---Python-Application
+          git pull origin main
+
+      - name: Install dependencies
+        run: |
+          cd /home/ubuntu/E-Commerce---Python-Application
+          source venv/bin/activate
+          pip install -r requirements.txt
+
+      - name: Restart app
+        run: |
+          sudo systemctl restart app.service
+
+      - name: Verify app is running
+        run: |
+          sleep 3
+          sudo systemctl status app.service --no-pager
