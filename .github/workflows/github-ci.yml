@@ -27,9 +27,9 @@ jobs:
 
       - name: Restart app
         run: |
-          sudo systemctl restart app.service
+          sudo systemctl restart python.service
 
       - name: Verify app is running
         run: |
           sleep 3
-          sudo systemctl status app.service --no-pager
+          sudo systemctl status python.service --no-pager
